@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuantumTech - Gamer Store</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      background-color: #0a0a0a;
+      color: #fff;
+    }
+
+    /* Header */
+    header {
+      background-color: #111;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 30px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.7);
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo {
+      height: 120px;
+      transition: transform 0.3s ease, filter 0.3s ease;
+      filter: drop-shadow(0 0 8px #f54266);
+    }
+
+    .logo:hover {
+      transform: scale(1.1);
+      filter: drop-shadow(0 0 12px #42f5b6);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+    }
+
+    /* Botón de menú */
+    .menu-btn {
+      background-color: #f54266;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 18px;
+      transition: background-color 0.3s ease;
+      text-transform: uppercase;
+    }
+
+    .menu-btn:hover {
+      background-color: #42f5b6;
+    }
+
+    /* Dropdown Menu */
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #222;
+      min-width: 250px;
+      z-index: 1;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+      border-radius: 5px;
+      margin-top: 5px;
+      right: 30px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-20px);
+      transition: all 0.3s ease-in-out;
+    }
+
+    .dropdown-content.active {
+      display: block;
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .dropdown-content a {
+      color: #fff;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      font-size: 16px;
+      transition: background-color 0.3s ease, padding-left 0.3s ease;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #42f5b6;
+      padding-left: 20px;
+    }
+
+    /* Sub Menú */
+    .menu-item {
+      position: relative;
+      cursor: pointer;
+    }
+
+    .sub-menu {
+      display: none;
+      background-color: #444;
+      border-radius: 5px;
+      margin-top: 5px;
+    }
+
+    .sub-menu.active {
+      display: block;
+    }
+
+    .sub-menu a {
+      color: #fff;
+      padding: 10px 15px;
+      text-decoration: none;
+    }
+
+    .sub-menu a:hover {
+      background-color: #42f5b6;
+    }
+
+    .arrow {
+      margin-left: 5px;
+    }
+
+    /* Login Form */
+    .login-section {
+      background-color: #222;
+      padding: 20px;
+    }
+
+    .login-form input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 2px solid #f54266;
+      border-radius: 5px;
+      background-color: #444;
+      color: #fff;
+      font-size: 16px;
+    }
+
+    .login-form input[type="submit"] {
+      background-color: #ff0055;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .login-form input[type="submit"]:hover {
+      background-color: #42f5b6;
+    }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(to bottom, #111, #0a0a0a);
+      height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 50px;
+      color: #ff0055;
+      background-color: rgba(0,0,0,0.6);
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px #ff0055;
+    }
+
+    /* Carrusel */
+    .carrusel {
+      position: relative;
+      overflow: hidden;
+      width: 90%;
+      max-width: 1000px;
+      margin: 50px auto;
+      border-radius: 15px;
+      box-shadow: 0 0 20px #ff0055;
+    }
+
+    .carrusel-inner {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .carrusel-item {
+      min-width: 100%;
+      box-sizing: border-box;
+      text-align: center;
+      background-color: #111;
+    }
+
+    .carrusel-item img {
+      width: 100%;
+      height: auto;
+      border-bottom: 2px solid #ff0055;
+    }
+
+    .carrusel-item h2 {
+      padding: 20px;
+      color: #fff;
+      background-color: #222;
+      margin: 0;
+    }
+
+    .carrusel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0,0,0,0.5);
+      color: #fff;
+      border: none;
+      font-size: 30px;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 50%;
+      z-index: 10;
+    }
+
+    .prev {
+      left: 10px;
+    }
+
+    .next {
+      right: 10px;
+    }
+
+    .carrusel-btn:hover {
+      background-color: #ff0055;
+    }
+
+    /* Categorías */
+    .categorias {
+      display: none;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      padding: 50px 20px;
+      background-color: #141414;
+    }
+
+    .categoria {
+      background-color: #222;
+      border: 2px solid #ff0055;
+      padding: 20px;
+      border-radius: 15px;
+      width: 250px;
+      text-align: center;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+
+    .categoria:hover {
+      transform: scale(1.05);
+      border-color: #42f5b6;
+    }
+
+    .categoria img {
+      width: 100px;
+      height: 100px;
+      margin-bottom: 15px;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #111;
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      color: #888;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- Header -->
+<header>
+  <div class="logo-container">
+    <img src="https://i.imgur.com/64svwLb.png" alt="QuantumTech Logo" class="logo">
+  </div>
+  <nav>
+    <button class="menu-btn" onclick="toggleMenu()">Menú</button>
+  </nav>
+</header>
+
+<!-- Dropdown Menu -->
+<div class="dropdown-content">
+  <a href="#">Inicio</a>
+  <div class="menu-item" onclick="toggleSubMenu()">
+    Productos <span class="arrow">▼</span>
+    <div class="sub-menu">
+      <a href="javascript:void(0)" onclick="toggleCategorias('laptops')">Laptops Gamer</a>
+      <a href="javascript:void(0)" onclick="toggleCategorias('pcs')">PCs de Escritorio</a>
+      <a href="javascript:void(0)" onclick="toggleCategorias('perifericos')">Periféricos</a>
+    </div>
+  </div>
+  <div class="login-section">
+    <h2>Iniciar Sesión</h2>
+    <form class="login-form">
+      <input type="email" name="email" placeholder="Correo Electrónico" required>
+      <input type="password" name="password" placeholder="Contraseña" required>
+      <input type="submit" value="Iniciar Sesión">
+    </form>
+  </div>
+</div>
+
+<!-- Hero -->
+<section class="hero">
+  <h1>¡Domina el juego con QuantumTech!</h1>
+</section>
+
+<!-- Carrusel de Ofertas -->
+<section class="carrusel">
+    <div class="carrusel-inner">
+      <div class="carrusel-item active">
+        <img src="https://imgur.com/eu6kySA.png" alt="Oferta RTX 4090">
+        <h2>¡PC Gamer RTX 4090 a precio especial!</h2>
+      </div>
+      <div class="carrusel-item">
+        <img src="https://ss628.liverpool.com.mx/xl/1157330698.jpg" alt="Ofertas de Laptops">
+        <h2>Laptops Gamer - ¡Descuentos Increíbles!</h2>
+      </div>
+      <div class="carrusel-item">
+        <img src="https://imgur.com/vJHFv98.png" alt="Ofertas de Periféricos">
+        <h2>Periféricos Gamers en Oferta</h2>
+      </div>
+    </div>
+    <button class="carrusel-btn prev" onclick="moveSlide(-1)">❮</button>
+    <button class="carrusel-btn next" onclick="moveSlide(1)">❯</button>
+</section>
+
+<!-- Categorías -->
+<section class="categorias" id="categorias">
+  <div class="categoria">
+    <img src="https://imgur.com/0vY1DVa.png" alt="Laptop">
+    <h3>Laptops Gamer</h3>
+  </div>
+  <div class="categoria">
+    <img src="https://imgur.com/GIPGwWi.png" alt="PC">
+    <h3>PCs de Escritorio</h3>
+  </div>
+  <div class="categoria">
+    <img src="https://imgur.com/UqkIY5R.png" alt="Periférico">
+    <h3>Periféricos</h3>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <p>&copy; 2025 QuantumTech - Todos los derechos reservados.</p>
+</footer>
+
+<script>
+  let currentSlide = 0;
+  const slides = document.querySelectorAll('.carrusel-item');
+
+  function moveSlide(step) {
+    currentSlide += step;
+    if (currentSlide < 0) currentSlide = slides.length - 1;
+    if (currentSlide >= slides.length) currentSlide = 0;
+    updateCarousel();
+  }
+
+  function updateCarousel() {
+    document.querySelector('.carrusel-inner').style.transform = `translateX(-${currentSlide * 100}%)`;
+  }
+
+  const dropdownContent = document.querySelector('.dropdown-content');
+  const menuButton = document.querySelector('.menu-btn');
+
+  function toggleMenu() {
+    dropdownContent.classList.toggle('active');
+  }
+
+  function toggleSubMenu() {
+    const subMenu = document.querySelector('.sub-menu');
+    const arrow = document.querySelector('.arrow');
+    subMenu.classList.toggle('active');
+    arrow.textContent = subMenu.classList.contains('active') ? '▲' : '▼';
+  }
+
+  function toggleCategorias(categoria) {
+    document.getElementById('categorias').style.display = 'flex';
+  }
+
+  window.addEventListener('click', function (event) {
+    if (!dropdownContent.contains(event.target) && !menuButton.contains(event.target)) {
+      dropdownContent.classList.remove('active');
+    }
+  });
+</script>
+</body>
+</html>
