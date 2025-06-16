@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Iniciar Sesión</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1f1f1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .login-box {
+            position: relative;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            width: 300px;
+        }
+        .login-box h2 {
+            margin-bottom: 20px;
+        }
+        .login-box input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        .login-box button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .login-box button:hover {
+            background-color: #45a049;
+        }
+        .close-icon {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 20px;
+            color: #888;
+            cursor: pointer;
+        }
+        .close-icon:hover {
+            color: #f44336;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <span class="close-icon" onclick="cerrarPestaña()">×</span>
+        <h2>Iniciar Sesión</h2>
+        <form action="login.php" method="POST">
+            <input type="email" name="correo" placeholder="Correo Electrónico" required>
+            <input type="text" name="usuario" placeholder="Usuario" required>
+            <input type="password" name="clave" placeholder="Contraseña" required>
+            <button type="submit">Entrar</button>
+        </form>
+    </div>
+
+    <script>
+        function cerrarPestaña() {
+            window.open('', '_self');
+            window.close();
+
+            // Si no se puede cerrar, redirige a la página principal
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 100);
+        }
+    </script>
+</body>
+</html>
